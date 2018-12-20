@@ -73,6 +73,7 @@ class VoiceSegmentView @JvmOverloads constructor(context: Context, attrs: Attrib
         dotPaint.style = Paint.Style.FILL
         dotPaint.strokeWidth = dotWidth
         dotPaint.strokeCap = Paint.Cap.ROUND
+        setPadding(ConvertUtil.dp2pxInt(2f),ConvertUtil.dp2pxInt(3f), ConvertUtil.dp2pxInt(2f), ConvertUtil.dp2pxInt(3f))
     }
 
     private var voiceSegment: VoiceSegment = VoiceSegment()

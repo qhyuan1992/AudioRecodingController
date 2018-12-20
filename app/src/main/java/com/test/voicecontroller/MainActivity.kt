@@ -146,7 +146,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
             return ViewHolder(VoiceSegmentView(p0.context).apply {
-                setPadding(0,ConvertUtil.dp2pxInt(3f), 0, ConvertUtil.dp2pxInt(3f))
                 setBackgroundColor(Color.BLACK)
             })
         }
