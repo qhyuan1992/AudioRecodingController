@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
-import com.test.voicecontroller.data.VoiceItem
 import com.test.voicecontroller.data.VoiceSegment
 import java.lang.RuntimeException
 
@@ -36,29 +35,14 @@ class VoiceSegmentView @JvmOverloads constructor(context: Context, attrs: Attrib
     private var lineSpace = ConvertUtil.dp2px(1f)
 
     /**
-     * 线条和点之间的间距 2dp
-     */
-    private var lineDotSpace = ConvertUtil.dp2px(2f)
-
-    /**
      * 矩形线条画笔
      */
     private val linePaint = Paint()
 
     /**
-     * 点画笔
+     * 背景色
      */
-    private val dotPaint = Paint()
-
-    /**
-     * 分割点Color
-     */
-    private val seperatorDotColor = Color.RED
-
-    /**
-     * 分割点宽度
-     */
-    private val dotWidth = ConvertUtil.dp2px(2f)
+    private val defaultBackgroundColor = Color.BLACK
 
     init {
         linePaint.color = lineColor
@@ -66,13 +50,7 @@ class VoiceSegmentView @JvmOverloads constructor(context: Context, attrs: Attrib
         linePaint.style = Paint.Style.FILL
         linePaint.strokeWidth = lineWidth
         linePaint.strokeCap = Paint.Cap.ROUND
-
-
-        dotPaint.color = seperatorDotColor
-        dotPaint.isAntiAlias = true
-        dotPaint.style = Paint.Style.FILL
-        dotPaint.strokeWidth = dotWidth
-        dotPaint.strokeCap = Paint.Cap.ROUND
+        setBackgroundColor(defaultBackgroundColor)
     }
 
     private var voiceSegment: VoiceSegment = VoiceSegment()
@@ -99,7 +77,7 @@ class VoiceSegmentView @JvmOverloads constructor(context: Context, attrs: Attrib
 
         // RecyclerView中的item使用包裹内容得到的是UNSPECIFIED模式
         if (widthSpecMode == MeasureSpec.AT_MOST || widthSpecMode == MeasureSpec.UNSPECIFIED) {
-            widthSpecSize = ((dotWidth + lineDotSpace) * 2 + (2*voiceSegment.voiceData.size - 1) * lineWidth).toInt() + paddingLeft + paddingRight
+            widthSpecSize = ((2*voiceSegment.voiceData.size - 1) * lineWidth).toInt() + paddingLeft + paddingRight
         }
         setMeasuredDimension(widthSpecSize, heightSpecSize)
     }
@@ -109,11 +87,7 @@ class VoiceSegmentView @JvmOverloads constructor(context: Context, attrs: Attrib
         // 绘制所有的数据
         val maxHeight = measuredHeight - paddingTop - paddingBottom
         canvas.save()
-        canvas.translate(paddingLeft + dotWidth/2, (measuredHeight / 2).toFloat())
-        // 绘制分割点
-        canvas.drawPoint(0f, 0f, dotPaint)
-        canvas.translate(dotWidth/2 + lineWidth/2 + lineDotSpace, 0f)
-
+        canvas.translate(paddingLeft + lineWidth/2, (measuredHeight / 2).toFloat())
         val voiceData = voiceSegment.voiceData
         for (i in voiceData.indices) {
             val voice = voiceData[i]
@@ -125,14 +99,8 @@ class VoiceSegmentView @JvmOverloads constructor(context: Context, attrs: Attrib
                 linePaint.color = lineColor
             }
             canvas.drawLine(0f, -startY, 0f, startY, linePaint)
-            if (i == voiceData.size - 1) {
-                canvas.translate(dotWidth/2 + lineWidth/2 + lineDotSpace, 0f)
-            } else {
-                canvas.translate(lineWidth + lineSpace, 0f)
-            }
+            canvas.translate(lineWidth + lineSpace, 0f)
         }
-        // 绘制分割点
-        canvas.drawPoint(0f, 0f, dotPaint)
         canvas.restore()
     }
 

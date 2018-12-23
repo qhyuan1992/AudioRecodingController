@@ -20,13 +20,10 @@ import android.graphics.PointF;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
+import com.test.voicecontroller.VoiceSeperatorView;
 
 
 /**
- * Footer对齐模式
- * 播放状态:自动滚动
- * 滑动状态:停靠在最靠近的边上
- *
  * Implementation of the {@link SnapHelper} supporting snapping in either vertical or horizontal
  * orientation.
  * <p>
@@ -34,7 +31,7 @@ import android.view.View;
  * the attached {@link RecyclerView}. If you intend to change this behavior then override
  * {@link SnapHelper#calculateDistanceToFinalSnap}.
  */
-public class FooterAlignLinearSnapHelper extends SnapHelper {
+public class VoiceLinearSnapHelper extends SnapHelper {
 
     private static final float INVALID_DISTANCE = 1f;
 
@@ -144,15 +141,15 @@ public class FooterAlignLinearSnapHelper extends SnapHelper {
 
     private int distanceToCenter(@NonNull RecyclerView.LayoutManager layoutManager,
                                  @NonNull View targetView, OrientationHelper helper) {
-        final int childTail = helper.getDecoratedStart(targetView) + helper.getDecoratedMeasurement(targetView);
-
+        final int childCenter = helper.getDecoratedStart(targetView)
+                + (helper.getDecoratedMeasurement(targetView) / 2);
         final int containerCenter;
         if (layoutManager.getClipToPadding()) {
             containerCenter = helper.getStartAfterPadding() + helper.getTotalSpace() / 2;
         } else {
             containerCenter = helper.getEnd() / 2;
         }
-        return childTail - containerCenter;
+        return childCenter - containerCenter;
     }
 
     /**
@@ -206,8 +203,9 @@ public class FooterAlignLinearSnapHelper extends SnapHelper {
 
         for (int i = 0; i < childCount; i++) {
             final View child = layoutManager.getChildAt(i);
+            if (!(child instanceof VoiceSeperatorView)) continue;
             int childCenter = helper.getDecoratedStart(child)
-                    + (helper.getDecoratedMeasurement(child));
+                    + (helper.getDecoratedMeasurement(child) / 2);
             int absDistance = Math.abs(childCenter - center);
 
             /** if child center is closer than previous closest, set it as closest  **/
