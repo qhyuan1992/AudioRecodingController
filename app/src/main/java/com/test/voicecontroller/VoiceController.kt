@@ -19,6 +19,7 @@ import android.widget.Toast
 import com.test.voicecontroller.data.BaseVoiceItem
 import com.test.voicecontroller.data.VoiceSegment
 import com.test.voicecontroller.data.VoiceSeperator
+import com.test.voicecontroller.data.VoiceSpaceItem
 
 class VoiceController @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -182,6 +183,12 @@ class VoiceController @JvmOverloads constructor(
                                     // 遇到上一个start
                                     if (startItemData is VoiceSeperator && startItemData.type == VoiceSeperator.TYPE_NORMAL) {
                                         pendingDeleteIndexList.removeAt(pendingDeleteIndexList.size - 1)
+                                    } else {
+                                        // 删除space
+                                        val maySpace = i - 1
+                                        if (maySpace >= 0 && data[maySpace] is VoiceSpaceItem) {
+                                            pendingDeleteIndexList.add(maySpace)
+                                        }
                                     }
                                     break
                                 } else if (currentItemData.type == VoiceSeperator.TYPE_NORMAL) {

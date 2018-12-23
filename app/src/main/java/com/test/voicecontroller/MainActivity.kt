@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
             }
             data.removeAt(data.size - 1)
             data.add(VoiceSeperator(VoiceSeperator.TYPE_END))
-            data.add(SpaceItem())
+            data.add(VoiceSpaceItem())
         }
         return data
     }
