@@ -8,64 +8,33 @@
         android:orientation="vertical"
         android:background="@drawable/bg"
 >
-
     <com.test.voicecontroller.VoiceSegmentView
             android:background="#ccc"
             android:id="@+id/voiceView"
             android:layout_width="wrap_content"
             android:layout_height="50dp"/>
-    <RelativeLayout
-            android:id="@+id/recyclerViewOuter"
-            android:layout_marginTop="20dp"
+
+    <LinearLayout
+            android:layout_marginTop="30dp"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            >
-        <View
-                android:layout_width="match_parent"
-                android:layout_height="8dp"
-                android:background="@drawable/voice_line_bg"
-                android:layout_centerVertical="true"
-        />
+            android:layout_height="30dp">
+        <com.test.voicecontroller.VoiceSeperatorView
+                android:layout_marginLeft="10dp"
+                android:id="@+id/seperaorView1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+        <com.test.voicecontroller.VoiceSeperatorView
+                android:layout_marginLeft="10dp"
+                android:id="@+id/seperaorView2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+        <com.test.voicecontroller.VoiceSeperatorView
+                android:layout_marginLeft="10dp"
+                android:id="@+id/seperaorView3"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+    </LinearLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
-        <View
-                android:id="@+id/centerLine"
-                android:layout_centerInParent="true"
-                android:background="#f00"
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-        />
-        <View
-                android:id="@+id/playShadow"
-                android:layout_width="60dp"
-                android:layout_height="30dp"
-                android:background="@drawable/play_shadow"
-        />
-        <ImageView
-                android:id="@+id/play"
-                android:padding="5dp"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/play"
-                android:layout_centerVertical="true"
-        />
-
-        <ImageView
-                android:id="@+id/deleteSegment"
-                android:padding="5dp"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/delete"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-        />
-
-    </RelativeLayout>
-    
     <Button
             android:id="@+id/add_daxi"
             android:layout_width="wrap_content"
@@ -79,5 +48,25 @@
             android:layout_height="wrap_content"
             android:text="添加音效"
     />
+
+    <Button
+            android:id="@+id/scrollleft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="scrollleft"
+    />
+    <Button
+            android:id="@+id/scrollright"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="scrollright"
+    />
+
+    <com.test.voicecontroller.VoiceController
+            android:id="@+id/voiceController"
+            android:layout_width="match_parent"
+            android:layout_height="30dp">
+
+    </com.test.voicecontroller.VoiceController>
 
 </LinearLayout>
